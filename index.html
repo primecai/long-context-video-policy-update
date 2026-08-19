@@ -77,7 +77,7 @@
       <section class="slide diagram-slide" data-background-color="#ffffff">
         <h2>The field keeps reaching deeper into the language model</h2>
         <div class="content diagram-content">
-          <svg class="diagram" viewBox="0 0 1700 480" role="img" aria-label="Timeline of text encoders used by text-to-image and video models: CLIP, T5-XXL, CLIP plus T5, LLMs such as Gemma and Llama, full VLMs such as Qwen2.5-VL last layer, then an intermediate VLM layer in MiniMax-H3, then trainable encoders. Each step reaches deeper into the language model; our model removes the encoder entirely.">
+          <svg class="diagram" viewBox="0 0 1700 260" role="img" aria-label="Timeline of text encoders used by text-to-image and video models: CLIP, T5-XXL, CLIP plus T5, LLMs such as Gemma and Llama, full VLMs such as Qwen2.5-VL last layer, then an intermediate VLM layer in MiniMax-H3, then trainable encoders. Each step reaches deeper into the language model; our model removes the encoder entirely.">
             <defs><marker id="arr3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#000"/></marker></defs>
             <g font-family="Inter, Helvetica, Arial, sans-serif" fill="#000">
               <line x1="60" y1="150" x2="1640" y2="150" stroke="#000" stroke-width="3" marker-end="url(#arr3)"/>
@@ -89,9 +89,6 @@
                 <circle cx="1180" cy="150" r="10" fill="#000"/><text x="1180" y="100" font-weight="600">VLM, last layer</text><text x="1180" y="215" font-size="24">Qwen-Image</text>
                 <circle cx="1440" cy="150" r="10" fill="#000"/><text x="1440" y="100" font-weight="600">VLM, middle layer</text><text x="1440" y="215" font-size="24">MiniMax-H3 (layer 50 of 64)</text>
               </g>
-              <text x="850" y="320" text-anchor="middle" font-size="30">stronger encoder · more of it · deeper access · even trainable (Seedream, BAGEL)</text>
-              <text x="850" y="395" text-anchor="middle" font-size="32" font-weight="600">every step moves the same way, nobody isolates which change does the work</text>
-              <text x="850" y="450" text-anchor="middle" font-size="30">ours: no encoder at all, and a matched ladder that isolates it</text>
             </g>
           </svg>
         </div>
