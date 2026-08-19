@@ -40,11 +40,11 @@ Video as it stands, the cases that work: held-out three-second clips, each shown
 
 ## 10. 3 s action-conditioned video: what still fails (0:40)
 
-And the honest side: clips with fast, close-range motion, combat next to the other agent, or mining and sprinting through dense trees with large turns. Teacher-forced prediction only ties a copy-last baseline and the autoregressive rollout breaks up after roughly a second and a half. Same model, same sampler, so this is undertraining on dynamics, not a pipeline fault; every training window is three seconds, and longer windows plus a Self Forcing stage are the next two changes.
+And the honest side: clips with fast, close-range motion, combat next to the other agent, or mining and sprinting through dense trees with large turns. Teacher-forced prediction only ties a copy-last baseline and the autoregressive rollout breaks up after one to two seconds. Same model, same sampler, so this is undertraining on dynamics, not a pipeline fault; every training window is three seconds, and longer windows are the next data change.
 
 ## 11. Next: video (0:50)
 
-Next on video. Longer windows first: the episodes are two to three minutes and we have been training on three seconds because of a producer setting; nine and twenty-seven second documents are verified end to end and the re-encode is next, mixed as a curriculum. Then a Self Forcing stage so autoregressive rollouts stop drifting, and the memory tasks that sliding-window world models structurally fail. The understanding ladder, with Kimi K3 reasoning traces before each decision at the top, and an agentic harness on a vanilla model as its test-time counterpart. And the policy side: the language head is already supervised on actions; evaluating it and teacher-student imitation are the next steps.
+Next on video. Longer windows first: the episodes are two to three minutes and we have been training on three seconds because of a producer setting; nine and twenty-seven second documents are verified end to end and the re-encode is next, mixed as a curriculum. Then the memory tasks that sliding-window world models structurally fail. The understanding ladder, with Kimi K3 reasoning traces before each decision at the top, and an agentic harness on a vanilla model as its test-time counterpart. And the policy side: the language head is already supervised on actions; evaluating it and teacher-student imitation are the next steps.
 
 ## 12. Next: image, and what we claim (0:45)
 

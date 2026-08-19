@@ -245,7 +245,7 @@
         <p class="takeaway">Fast close-range motion: the autoregressive rollout drifts after 1 to 2 s and falls apart. On these clips prediction is no better than copy-last.</p>
         <aside class="notes">
           <!-- 0:40 -->
-          <p>And the honest side: clips with fast, close-range motion, combat next to the other agent, or mining and sprinting through dense trees with large turns. Teacher-forced prediction only ties a copy-last baseline and the autoregressive rollout breaks up after one to two seconds. Same model, same sampler, so this is undertraining on dynamics, not a pipeline fault; every training window is three seconds, and longer windows plus a Self Forcing stage are the next two changes.</p>
+          <p>And the honest side: clips with fast, close-range motion, combat next to the other agent, or mining and sprinting through dense trees with large turns. Teacher-forced prediction only ties a copy-last baseline and the autoregressive rollout breaks up after one to two seconds. Same model, same sampler, so this is undertraining on dynamics, not a pipeline fault; every training window is three seconds, and longer windows are the next data change.</p>
         </aside>
         <div class="slide-number">10</div>
       </section>
@@ -255,14 +255,14 @@
         <div class="content center-content">
           <ul class="plain-list claims-list">
             <li>Longer windows: 3 s → 9 s → 27 s in one curriculum. Pipeline verified, re-encode next.</li>
-            <li>Self Forcing so rollouts stop drifting; then memory tasks a sliding window cannot pass.</li>
+            <li>Memory tasks that sliding-window world models cannot pass.</li>
             <li>Understanding ladder: actions → scene → goal + narrative → Kimi K3 reasoning traces.</li>
             <li>Policy: evaluate action prediction; teacher–student imitation.</li>
           </ul>
         </div>
         <aside class="notes">
           <!-- 0:50 -->
-          <p>Next on video. Longer windows first: the episodes are two to three minutes and we have been training on three seconds because of a producer setting; nine and twenty-seven second documents are verified end to end and the re-encode is next, mixed as a curriculum. Then a Self Forcing stage so autoregressive rollouts stop drifting, and the memory tasks that sliding-window world models structurally fail. The understanding ladder, with Kimi K3 reasoning traces before each decision at the top, and an agentic harness on a vanilla model as its test-time counterpart. And the policy side: the language head is already supervised on actions; evaluating it and teacher-student imitation are the next steps.</p>
+          <p>Next on video. Longer windows first: the episodes are two to three minutes and we have been training on three seconds because of a producer setting; nine and twenty-seven second documents are verified end to end and the re-encode is next, mixed as a curriculum. Then the memory tasks that sliding-window world models structurally fail. The understanding ladder, with Kimi K3 reasoning traces before each decision at the top, and an agentic harness on a vanilla model as its test-time counterpart. And the policy side: the language head is already supervised on actions; evaluating it and teacher-student imitation are the next steps.</p>
         </aside>
         <div class="slide-number">11</div>
       </section>
