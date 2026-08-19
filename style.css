@@ -902,3 +902,10 @@ body { margin: 0; }
 .title-slide .subtitle { margin-top: 28px; font-size: 36px; }
 .title-slide .subtitle.small { margin-top: 18px; font-size: 28px; }
 .dyn-slide > .takeaway { font-size: 26px; font-weight: 500; }
+
+/* concept diagrams */
+.diagram-content { top: 170px; height: calc(100% - 330px); display: flex; align-items: center; justify-content: center; }
+.diagram { display: block; width: 1700px; height: auto; max-height: 100%; }
+.diagram-slide > .takeaway { font-size: 30px; }
+.diagram { width: 1760px; }
+.diagram-content { top: 150px; height: calc(100% - 300px); }

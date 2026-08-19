@@ -7,15 +7,15 @@ Controls: arrow keys / space to advance, `O` overview, `F` fullscreen, `S` speak
 ## Slides
 
 1. Title
-2. Motivation: remove the encoder bottleneck
-3. Motivation: one stream for video, actions and reasoning
-4. What we built
-5. Shown: frozen text encoders cannot render long text
+2. Today: a frozen encoder sits between language and pixels (diagram)
+3. A video world model is one long interleaved chain (diagram)
+4. What exists
+5. Shown: a frozen encoder caps text rendering; joint training lifts the cap
 6. Shown: guidance amplifies, it does not repair
-7. Shown: the joint arm learns images at least as fast
+7. Shown: unfreezing the language trunk does not cost image quality
 8. Shown: 3 s action-conditioned video on held-out clips (four playable clips)
-9. Plan: video
-10. Plan: image, and open questions
+9. Next: video
+10. Next: image, and what we claim
 
 ## Assets
 
