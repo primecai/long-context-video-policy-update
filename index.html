@@ -203,31 +203,51 @@
       </section>
 
       <section class="slide video-slide dyn-slide" data-background-color="#ffffff">
-        <h2>Shown: 3 s action-conditioned video on held-out clips</h2>
+        <h2>3 s action-conditioned video: what works</h2>
         <div class="content dyn-content">
           <figure class="dyn-figure">
-            <video class="dyn-video" src="assets/video-dyn-river-hills.mp4" poster="assets/video-dyn-river-hills-poster.png" controls muted playsinline preload="metadata" aria-label="Sunny hills with a river and another player: sprint, jump, attack with camera swings"></video>
-            <figcaption>Sunny hills, another player / sprint · jump · attack</figcaption>
+            <video class="dyn-video" src="assets/video-good-slab.mp4" poster="assets/video-good-slab-poster.png" controls muted playsinline preload="metadata" aria-label="Flat plain build episode: look up to the sky, down to the grass, sneak back, place a stone slab"></video>
+            <figcaption>Build on a plain / look up · look down · sneak · place block</figcaption>
           </figure>
           <figure class="dyn-figure">
-            <video class="dyn-video" src="assets/video-dyn-birch-rain.mp4" poster="assets/video-dyn-birch-rain-poster.png" controls muted playsinline preload="metadata" aria-label="Birch forest in rain: mine, attack, sneak, sprint with large camera turns"></video>
-            <figcaption>Birch forest, rain / mine · sneak · attack</figcaption>
+            <video class="dyn-video" src="assets/video-good-forest.mp4" poster="assets/video-good-forest-poster.png" controls muted playsinline preload="metadata" aria-label="Forest build site seen from above: camera turns, sneak back, place a slab"></video>
+            <figcaption>Forest build site / camera turns · sneak · place block</figcaption>
           </figure>
           <figure class="dyn-figure">
-            <video class="dyn-video" src="assets/video-dyn-cave.mp4" poster="assets/video-dyn-cave-poster.png" controls muted playsinline preload="metadata" aria-label="Cave descent: repeated jumps with alternating camera turns"></video>
-            <figcaption>Cave / jump ×8, camera ±34°</figcaption>
+            <video class="dyn-video" src="assets/video-good-chase.mp4" poster="assets/video-good-chase-poster.png" controls muted playsinline preload="metadata" aria-label="Chase episode on a plain: idle, then sprint toward the other player with yaw changes"></video>
+            <figcaption>Chase, other player in view / idle · sprint with yaw</figcaption>
           </figure>
           <figure class="dyn-figure">
-            <video class="dyn-video" src="assets/video-dyn-plain-mining.mp4" poster="assets/video-dyn-plain-mining-poster.png" controls muted playsinline preload="metadata" aria-label="Open plain: look down and mine, then walk"></video>
-            <figcaption>Open plain / look down · mine · forward</figcaption>
+            <video class="dyn-video" src="assets/video-good-night.mp4" poster="assets/video-good-night-poster.png" controls muted playsinline preload="metadata" aria-label="Night build: jumps, camera turns, place bricks, the other player walks in"></video>
+            <figcaption>Night build / jump · turn · place block · other player enters</figcaption>
           </figure>
         </div>
-        <p class="takeaway">Ground truth · teacher-forced · autoregressive, actions overlaid. Scene and agents stay coherent; fast motion is not yet better than copy-last.</p>
+        <p class="takeaway">Ground truth · teacher-forced · autoregressive, actions overlaid. Camera swings, block placement and the other agent are tracked through the full 3 s.</p>
         <aside class="notes">
-          <!-- 1:00 -->
-          <p>Video as it stands: held-out three-second clips chosen for action diversity, each shown as ground truth, teacher-forced and autoregressive with the executed action printed on every frame. Structure holds; the model tracks the other agent, tilts to the sky on jumps and re-grounds. The honest number: on fast motion, teacher-forced prediction still only ties a copy-last baseline. The implementation is audited and correct, and ablations show the model uses history and actions; it is undertrained for dynamics, and every training window is three seconds, which is the next data change.</p>
+          <!-- 0:50 -->
+          <p>Video as it stands, the cases that work: held-out three-second clips, each shown as ground truth, teacher-forced and autoregressive with the executed action printed on every frame. These four are the clips where the autoregressive rollout beats a copy-last baseline by the largest margin, two to one on the first two. Large camera swings are followed, a placed slab appears where the action says, and the other agent is tracked, including when it walks into view. The implementation is audited and correct, and ablations show the model uses history and actions.</p>
         </aside>
         <div class="slide-number">9</div>
+      </section>
+
+      <section class="slide video-slide fail-slide" data-background-color="#ffffff">
+        <h2>3 s action-conditioned video: what still fails</h2>
+        <div class="content fail-content">
+          <figure class="fail-figure">
+            <video class="fail-video" src="assets/video-fail-combat.mp4" poster="assets/video-fail-combat-poster.png" controls muted playsinline preload="metadata" aria-label="Close-range combat: sprint, jump and attack next to the other player with fast camera swings"></video>
+            <figcaption>Close-range combat / sprint · jump · attack, other player at arm's length</figcaption>
+          </figure>
+          <figure class="fail-figure">
+            <video class="fail-video" src="assets/video-fail-birch.mp4" poster="assets/video-fail-birch-poster.png" controls muted playsinline preload="metadata" aria-label="Birch forest in rain: mine, attack, sneak, sprint with large camera turns"></video>
+            <figcaption>Birch forest in rain / mine · sneak · sprint, large turns</figcaption>
+          </figure>
+        </div>
+        <p class="takeaway">Fast close-range motion: the autoregressive rollout drifts after 1 to 2 s and falls apart. On these clips prediction is no better than copy-last.</p>
+        <aside class="notes">
+          <!-- 0:40 -->
+          <p>And the honest side: clips with fast, close-range motion, combat next to the other agent, or mining and sprinting through dense trees with large turns. Teacher-forced prediction only ties a copy-last baseline and the autoregressive rollout breaks up after one to two seconds. Same model, same sampler, so this is undertraining on dynamics, not a pipeline fault; every training window is three seconds, and longer windows plus a Self Forcing stage are the next two changes.</p>
+        </aside>
+        <div class="slide-number">10</div>
       </section>
 
       <section class="slide keypoints-slide" data-background-color="#ffffff">
@@ -244,7 +264,7 @@
           <!-- 0:50 -->
           <p>Next on video. Longer windows first: the episodes are two to three minutes and we have been training on three seconds because of a producer setting; nine and twenty-seven second documents are verified end to end and the re-encode is next, mixed as a curriculum. Then a Self Forcing stage so autoregressive rollouts stop drifting, and the memory tasks that sliding-window world models structurally fail. The understanding ladder, with Kimi K3 reasoning traces before each decision at the top, and an agentic harness on a vanilla model as its test-time counterpart. And the policy side: the language head is already supervised on actions; evaluating it and teacher-student imitation are the next steps.</p>
         </aside>
-        <div class="slide-number">10</div>
+        <div class="slide-number">11</div>
       </section>
 
       <section class="slide keypoints-slide" data-background-color="#ffffff">
@@ -260,7 +280,7 @@
           <!-- 0:45 -->
           <p>On the image side, the matched two-billion ladder is the paper's core table: four arms differing only in the interface. What we have not tried is architecture: our expert is a full Mixture-of-Transformers, and a recent controlled study in the same Transfusion-plus-flow setting finds that splitting only the feed-forward layers while sharing attention gives the synergy, that splitting attention collapses it, and that early joint training beats late sequential; our video line is late and sequential by construction, so a split-FFN arm and a joint-from-early arm are both cheap. The five claims: encoder-free, unified, less guidance, interleaved chains, and the understanding corpus as the missing piece of video generation.</p>
         </aside>
-        <div class="slide-number">11</div>
+        <div class="slide-number">12</div>
       </section>
 
     </div>

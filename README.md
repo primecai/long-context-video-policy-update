@@ -1,6 +1,6 @@
 # World Models with Transfusion: progress update
 
-An 11-slide advisor update distilled from the [long-context-video-policy](https://github.com/primecai/long-context-video-policy) deck: motivation, what has been built and shown, and the plan. Open `index.html` in a browser (self-contained, offline); `long-context-video-policy-update.pdf` is the static 16:9 export (videos appear as poster frames).
+A 12-slide advisor update distilled from the [long-context-video-policy](https://github.com/primecai/long-context-video-policy) deck: motivation, what has been built and shown, and the plan. Open `index.html` in a browser (self-contained, offline); `long-context-video-policy-update.pdf` is the static 16:9 export (videos appear as poster frames).
 
 Controls: arrow keys / space to advance, `O` overview, `F` fullscreen, `S` speaker view.
 
@@ -14,9 +14,10 @@ Controls: arrow keys / space to advance, `O` overview, `F` fullscreen, `S` speak
 6. Shown: a frozen encoder caps text rendering; joint training lifts the cap
 7. Shown: guidance amplifies, it does not repair
 8. Shown: unfreezing the language trunk does not cost image quality
-9. Shown: 3 s action-conditioned video on held-out clips
-10. Next: video
-11. Next: image, and what we claim
+9. 3 s action-conditioned video: what works
+10. 3 s action-conditioned video: what still fails
+11. Next: video
+12. Next: image, and what we claim
 
 ## Assets
 
