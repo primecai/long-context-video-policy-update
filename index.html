@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="description" content="Encoder-free unified Transfusion for long-context video policies: progress update">
-  <title>Progress Update: Encoder-Free Unified Transfusion</title>
+  <title>World Models with Transfusion</title>
   <link rel="stylesheet" href="vendor/dist/reset.css">
   <link rel="stylesheet" href="vendor/dist/reveal.css">
   <link rel="stylesheet" href="style.css">
@@ -15,9 +15,8 @@
 
       <section class="slide title-slide" data-background-color="#ffffff">
         <div class="center-stage">
-          <h1>Encoder-Free Unified Transfusion</h1>
-          <p class="subtitle">Progress update</p>
-          <p class="subtitle small">Shengqu Cai · August 2026</p>
+          <h1>World Models with Transfusion</h1>
+          <p class="subtitle">Removing Bottlenecks in Conditional Generative Models</p>
         </div>
         <aside class="notes">
           <!-- 0:15 -->
@@ -29,47 +28,45 @@
       <section class="slide diagram-slide" data-background-color="#ffffff">
         <h2>Today: a frozen encoder sits between language and pixels</h2>
         <div class="content diagram-content">
-          <svg class="diagram" viewBox="0 0 1700 560" role="img" aria-label="Left: prompt goes into a frozen text encoder, a single fixed embedding is handed to a diffusion generator, which outputs pixels. Right: one unified model where language and generation share weights and context, with text and image tokens in one sequence.">
+          <svg class="diagram" viewBox="0 0 1700 420" role="img" aria-label="Left: prompt goes into a frozen text encoder, a single fixed embedding is handed to a diffusion generator, which outputs pixels. Right: one unified model where language and generation share weights and context, with text and image tokens in one sequence.">
             <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#000"/></marker></defs>
-            <g font-family="Inter, Helvetica, Arial, sans-serif" font-size="30" fill="#000">
+            <g font-family="Inter, Helvetica, Arial, sans-serif" font-size="36" fill="#000">
               <!-- LEFT: encoder + generator -->
-              <text x="520" y="48" text-anchor="middle" font-weight="600" font-size="32">Encoder + generator (today)</text>
+              <text x="520" y="48" text-anchor="middle" font-weight="600" font-size="38">Encoder + generator (today)</text>
               <rect x="40" y="160" width="180" height="90" fill="none" stroke="#000" stroke-width="3"/>
               <text x="130" y="214" text-anchor="middle">prompt</text>
               <line x1="220" y1="205" x2="270" y2="205" stroke="#000" stroke-width="3" marker-end="url(#arr)"/>
               <rect x="270" y="140" width="230" height="130" fill="none" stroke="#000" stroke-width="3" stroke-dasharray="12 8"/>
               <text x="385" y="195" text-anchor="middle">text encoder</text>
-              <text x="385" y="235" text-anchor="middle" font-size="24">frozen</text>
+              <text x="385" y="235" text-anchor="middle" font-size="30">frozen</text>
               <line x1="500" y1="205" x2="550" y2="205" stroke="#000" stroke-width="3" marker-end="url(#arr)"/>
               <rect x="550" y="180" width="40" height="50" fill="#000"/>
-              <text x="570" y="275" text-anchor="middle" font-size="22">one fixed</text>
-              <text x="570" y="301" text-anchor="middle" font-size="22">embedding</text>
+              <text x="570" y="275" text-anchor="middle" font-size="28">one fixed</text>
+              <text x="570" y="301" text-anchor="middle" font-size="28">embedding</text>
               <line x1="590" y1="205" x2="640" y2="205" stroke="#000" stroke-width="3" marker-end="url(#arr)"/>
               <rect x="640" y="140" width="230" height="130" fill="none" stroke="#000" stroke-width="3"/>
               <text x="755" y="195" text-anchor="middle">diffusion</text>
               <text x="755" y="235" text-anchor="middle">generator</text>
               <line x1="870" y1="205" x2="920" y2="205" stroke="#000" stroke-width="3" marker-end="url(#arr)"/>
-              <text x="930" y="215" font-size="30">pixels</text>
-              <text x="520" y="380" text-anchor="middle" font-size="28">bottleneck · fixed prior · needs strong guidance</text>
+              <text x="930" y="215" font-size="36">pixels</text>
               <!-- divider -->
               <line x1="1060" y1="90" x2="1060" y2="460" stroke="#000" stroke-width="2"/>
               <!-- RIGHT: unified -->
-              <text x="1380" y="48" text-anchor="middle" font-weight="600" font-size="32">Unified (ours)</text>
+              <text x="1380" y="48" text-anchor="middle" font-weight="600" font-size="38">Unified (ours)</text>
               <rect x="1200" y="140" width="360" height="130" fill="none" stroke="#000" stroke-width="3"/>
               <text x="1380" y="190" text-anchor="middle">one model</text>
-              <text x="1380" y="232" text-anchor="middle" font-size="24">language + image + video</text>
-              <g font-size="24">
+              <text x="1380" y="232" text-anchor="middle" font-size="30">language + image + video</text>
+              <g font-size="30">
                 <rect x="1200" y="305" width="64" height="42" fill="none" stroke="#000" stroke-width="2"/><text x="1232" y="333" text-anchor="middle">txt</text>
                 <rect x="1274" y="305" width="64" height="42" fill="#000"/><text x="1306" y="333" text-anchor="middle" fill="#fff">img</text>
                 <rect x="1348" y="305" width="64" height="42" fill="none" stroke="#000" stroke-width="2"/><text x="1380" y="333" text-anchor="middle">txt</text>
                 <rect x="1422" y="305" width="64" height="42" fill="#000"/><text x="1454" y="333" text-anchor="middle" fill="#fff">img</text>
                 <rect x="1496" y="305" width="64" height="42" fill="none" stroke="#000" stroke-width="2"/><text x="1528" y="333" text-anchor="middle">…</text>
               </g>
-              <text x="1380" y="380" text-anchor="middle" font-size="28">one sequence, one context, no handoff</text>
+              <text x="1380" y="380" text-anchor="middle" font-size="34">one sequence, one context, no handoff</text>
             </g>
           </svg>
         </div>
-        <p class="takeaway">The handoff, not model size, is what we think limits conditioning. We remove it and measure.</p>
         <aside class="notes">
           <!-- 1:00 -->
           <p>The premise in one picture. Left: nearly every conditional generative model runs the prompt through a frozen text encoder once, hands the generator a single fixed embedding, and the generator can never re-read the language model. That handoff is a bottleneck and a fixed prior, and it is why everyone leans on strong classifier-free guidance. Right: our model has no encoder. Language, image and video tokens live in one sequence in one model, so the generator reads the language model as deeply, and as late, as it needs. The field has been drifting this way, from CLIP to T5 to LLMs to VLMs, without isolating which change does the work; we isolate it.</p>
@@ -80,29 +77,28 @@
       <section class="slide diagram-slide" data-background-color="#ffffff">
         <h2>A video world model is one long interleaved chain</h2>
         <div class="content diagram-content">
-          <svg class="diagram" viewBox="0 0 1600 520" role="img" aria-label="A single sequence: a scene caption, then frame 0, action 1, frame 1, action 2, frame 2, and so on to frame k, with a reasoning span before an action; the model predicts the next frame and the next action from the same history.">
-            <g font-family="Inter, Helvetica, Arial, sans-serif" font-size="28" fill="#000">
-              <rect x="40" y="150" width="190" height="70" fill="none" stroke="#000" stroke-width="3"/><text x="135" y="194" text-anchor="middle" font-size="24">scene caption</text>
-              <line x1="230" y1="185" x2="270" y2="185" stroke="#000" stroke-width="3" marker-end="url(#arr2)"/>
-              <rect x="270" y="140" width="130" height="90" fill="#000"/><text x="335" y="192" text-anchor="middle" fill="#fff">frame 0</text>
-              <line x1="400" y1="185" x2="440" y2="185" stroke="#000" stroke-width="3" marker-end="url(#arr2)"/>
-              <rect x="440" y="150" width="150" height="70" fill="none" stroke="#000" stroke-width="3"/><text x="515" y="194" text-anchor="middle" font-size="24">forward sprint</text>
-              <line x1="590" y1="185" x2="630" y2="185" stroke="#000" stroke-width="3" marker-end="url(#arr2)"/>
-              <rect x="630" y="140" width="130" height="90" fill="#000"/><text x="695" y="192" text-anchor="middle" fill="#fff">frame 1</text>
-              <line x1="760" y1="185" x2="800" y2="185" stroke="#000" stroke-width="3" marker-end="url(#arr2)"/>
-              <rect x="800" y="150" width="230" height="70" fill="none" stroke="#000" stroke-width="3" stroke-dasharray="10 7"/><text x="915" y="194" text-anchor="middle" font-size="24">reasoning, then act</text>
-              <line x1="1030" y1="185" x2="1070" y2="185" stroke="#000" stroke-width="3" marker-end="url(#arr2)"/>
-              <rect x="1070" y="140" width="130" height="90" fill="#000"/><text x="1135" y="192" text-anchor="middle" fill="#fff">frame 2</text>
-              <line x1="1200" y1="185" x2="1240" y2="185" stroke="#000" stroke-width="3" marker-end="url(#arr2)"/>
-              <text x="1280" y="195" font-size="34">…</text>
-              <rect x="1350" y="140" width="130" height="90" fill="#000"/><text x="1415" y="192" text-anchor="middle" fill="#fff">frame k</text>
-              <!-- braces / annotations -->
-              <path d="M270 260 L270 285 L1480 285 L1480 260" fill="none" stroke="#000" stroke-width="2"/>
-              <text x="875" y="330" text-anchor="middle" font-size="26">frame k = frame 0 edited by k actions, each edit sees the whole history</text>
-              <text x="875" y="410" text-anchor="middle" font-size="28">the same model predicts the <tspan font-weight="600">next frame</tspan> and the <tspan font-weight="600">next action</tspan> from the same history</text>
-              <text x="875" y="470" text-anchor="middle" font-size="26">world model + policy in one pass · a split planner-plus-diffusion system cannot express this</text>
-            </g>
+          <svg class="diagram" viewBox="0 0 1700 520" role="img" aria-label="A single sequence: a scene caption, then frame 0, action 1, frame 1, action 2, frame 2, and so on to frame k, with a reasoning span before an action; the model predicts the next frame and the next action from the same history.">
             <defs><marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#000"/></marker></defs>
+            <g font-family="Inter, Helvetica, Arial, sans-serif" font-size="32" fill="#000">
+              <rect x="20" y="150" width="230" height="80" fill="none" stroke="#000" stroke-width="3"/><text x="135" y="200" text-anchor="middle" font-size="28">scene caption</text>
+              <line x1="250" y1="190" x2="290" y2="190" stroke="#000" stroke-width="3" marker-end="url(#arr2)"/>
+              <rect x="290" y="140" width="150" height="100" fill="#000"/><text x="365" y="201" text-anchor="middle" fill="#fff">frame 0</text>
+              <line x1="440" y1="190" x2="480" y2="190" stroke="#000" stroke-width="3" marker-end="url(#arr2)"/>
+              <rect x="480" y="150" width="220" height="80" fill="none" stroke="#000" stroke-width="3"/><text x="590" y="200" text-anchor="middle" font-size="28">forward sprint</text>
+              <line x1="700" y1="190" x2="740" y2="190" stroke="#000" stroke-width="3" marker-end="url(#arr2)"/>
+              <rect x="740" y="140" width="150" height="100" fill="#000"/><text x="815" y="201" text-anchor="middle" fill="#fff">frame 1</text>
+              <line x1="890" y1="190" x2="930" y2="190" stroke="#000" stroke-width="3" marker-end="url(#arr2)"/>
+              <rect x="930" y="150" width="290" height="80" fill="none" stroke="#000" stroke-width="3" stroke-dasharray="10 7"/><text x="1075" y="200" text-anchor="middle" font-size="28">reasoning, then act</text>
+              <line x1="1220" y1="190" x2="1260" y2="190" stroke="#000" stroke-width="3" marker-end="url(#arr2)"/>
+              <rect x="1260" y="140" width="150" height="100" fill="#000"/><text x="1335" y="201" text-anchor="middle" fill="#fff">frame 2</text>
+              <line x1="1410" y1="190" x2="1450" y2="190" stroke="#000" stroke-width="3" marker-end="url(#arr2)"/>
+              <text x="1480" y="202" font-size="36">…</text>
+              <rect x="1530" y="140" width="150" height="100" fill="#000"/><text x="1605" y="201" text-anchor="middle" fill="#fff">frame k</text>
+              <path d="M290 270 L290 295 L1680 295 L1680 270" fill="none" stroke="#000" stroke-width="2"/>
+              <text x="985" y="345" text-anchor="middle" font-size="30">frame k = frame 0 edited by k actions, each edit sees the whole history</text>
+              <text x="985" y="425" text-anchor="middle" font-size="32">the same model predicts the <tspan font-weight="600">next frame</tspan> and the <tspan font-weight="600">next action</tspan> from the same history</text>
+              <text x="985" y="485" text-anchor="middle" font-size="30">world model + policy in one pass · a split planner-plus-diffusion system cannot express this</text>
+            </g>
           </svg>
         </div>
         <aside class="notes">

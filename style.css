@@ -909,3 +909,24 @@ body { margin: 0; }
 .diagram-slide > .takeaway { font-size: 30px; }
 .diagram { width: 1760px; }
 .diagram-content { top: 150px; height: calc(100% - 300px); }
+
+/* ===== advisor deck: larger type for a sparse 10-slide deck ===== */
+.title-slide h1 { font-size: 84px; }
+.title-slide .subtitle { margin-top: 34px; font-size: 40px; }
+
+/* diagrams fill the width */
+.diagram-content { top: 150px; height: calc(100% - 230px); }
+.diagram { width: 1820px; max-width: 100%; }
+
+/* bullet slides */
+.keypoints-slide .claims-list { width: min(1680px, 100%); padding-left: 48px; }
+.keypoints-slide .claims-list li { font-size: 40px; line-height: 1.45; margin: 34px 0; }
+
+/* results: bigger captions and takeaways */
+.uni-figure figcaption { font-size: 27px; }
+.slide > .takeaway { font-size: 33px; bottom: 84px; }
+.dyn-figure figcaption { font-size: 26px; }
+.dyn-slide > .takeaway { font-size: 30px; }
+.diagram-content { top: 140px; height: calc(100% - 200px); }
+.diagram { width: 100%; max-width: 1800px; height: 100%; max-height: none; }
+.diagram-content { align-items: center; }

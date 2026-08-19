@@ -1,8 +1,8 @@
-# Encoder-Free Unified Transfusion: progress update (speaker notes)
+# World Models with Transfusion (speaker notes)
 
 Target duration: about 8 minutes 15 seconds.
 
-## 1. Encoder-Free Unified Transfusion — 0:15
+## 1. World Models with Transfusion — 0:15
 
 A short update on the unified Transfusion line: why, what has been shown, and what is next.
 

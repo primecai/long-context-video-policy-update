@@ -1,4 +1,4 @@
-# Encoder-Free Unified Transfusion: progress update
+# World Models with Transfusion: progress update
 
 A 10-slide advisor update distilled from the [long-context-video-policy](https://github.com/primecai/long-context-video-policy) deck: motivation, what has been built and shown, and the plan. Open `index.html` in a browser (self-contained, offline); `long-context-video-policy-update.pdf` is the static 16:9 export (videos appear as poster frames).
 
