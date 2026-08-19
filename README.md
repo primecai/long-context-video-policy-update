@@ -23,6 +23,5 @@ Controls: arrow keys / space to advance, `O` overview, `F` fullscreen, `S` speak
 - Guidance × word matrix: `assets/glyph-cfg-matrix-132k-4rows.png`
 - Joint arm samples at 30K: `assets/m6-flagship-30k-samples.png`
 - Held-out 3 s rollouts at 172K (GT · TF · AR, actions overlaid): `assets/video-dyn-*.mp4` with `-poster.png`
-- Overview of 24 held-out clips: `assets/video-3s-overview.png`
 
 Reveal.js is vendored under `vendor/`. Speaker notes are in `speaker-notes.md` (about 8 min).
