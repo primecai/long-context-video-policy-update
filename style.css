@@ -930,3 +930,7 @@ body { margin: 0; }
 .diagram-content { top: 140px; height: calc(100% - 200px); }
 .diagram { width: 100%; max-width: 1800px; height: 100%; max-height: none; }
 .diagram-content { align-items: center; }
+.diagram-content { display: block; top: 150px; height: auto; }
+.diagram { display: block; width: 1700px; height: auto; max-height: none; margin: 60px auto 0; }
+.diagram-content { display: flex; align-items: center; justify-content: center; top: 150px; height: calc(100% - 230px); }
+.diagram { margin: 0; }
